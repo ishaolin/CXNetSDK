@@ -8,7 +8,7 @@
 
 #import "UIDevice+CXNetSDKExtensions.h"
 #import <objc/runtime.h>
-#import "CXNetworkUtil.h"
+#import "CXNetworkUtils.h"
 #include <sys/utsname.h>
 #import <CXFoundation/CXFoundation.h>
 
@@ -63,7 +63,7 @@
 - (NSString *)cx_MACAddr{
     NSString *addr = objc_getAssociatedObject(self, _cmd);
     if(!addr){
-        addr = [CXNetworkUtil MACAddr];
+        addr = [CXNetworkUtils MACAddr];
         objc_setAssociatedObject(self, _cmd, addr, OBJC_ASSOCIATION_COPY_NONATOMIC);
     }
     
@@ -76,8 +76,8 @@
 
 - (void)cx_syncIPStack{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *IPAddr = [CXNetworkUtil IPAddr];
-        NSString *gatewayAddr = [CXNetworkUtil gatewayAddr];
+        NSString *IPAddr = [CXNetworkUtils IPAddr];
+        NSString *gatewayAddr = [CXNetworkUtils gatewayAddr];
         dispatch_async(dispatch_get_main_queue(), ^{
             objc_setAssociatedObject(self,@selector(cx_IPAddr),
                                      IPAddr,
@@ -87,7 +87,7 @@
                                      OBJC_ASSOCIATION_COPY_NONATOMIC);
             objc_setAssociatedObject(self,
                                      @selector(cx_WiFiInfo),
-                                     [CXNetworkUtil WiFiInfo],
+                                     [CXNetworkUtils WiFiInfo],
                                      OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         });
     });

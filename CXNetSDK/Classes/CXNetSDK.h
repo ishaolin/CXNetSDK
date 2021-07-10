@@ -16,7 +16,7 @@
 #import "CXNetworkManager.h"
 #import "UIDevice+CXNetSDKExtensions.h"
 #import "AFNetworkReachabilityManager+CXNetSDKExtensions.h"
-#import "CXSignUtil.h"
-#import "CXNetworkUtil.h"
+#import "CXSignUtils.h"
+#import "CXNetworkUtils.h"
 
 #endif /* CXNetSDK_h */

@@ -1,14 +1,14 @@
 //
-//  CXWiFiUtil.m
+//  CXWiFiUtils.m
 //  Pods
 //
 //  Created by wshaolin on 2019/1/30.
 //
 
-#import "CXWiFiUtil.h"
+#import "CXWiFiUtils.h"
 #import <SystemConfiguration/CaptiveNetwork.h>
 
-@implementation CXWiFiUtil
+@implementation CXWiFiUtils
 
 + (NSDictionary<NSString *, NSString *> *)WiFiInfo{
     NSDictionary<NSString *, NSString *> *info = nil;

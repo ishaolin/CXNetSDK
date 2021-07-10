@@ -1,16 +1,16 @@
 //
-//  CXSignUtil.m
+//  CXSignUtils.m
 //  Pods
 //
 //  Created by wshaolin on 2017/5/16.
 //
 //
 
-#import "CXSignUtil.h"
+#import "CXSignUtils.h"
 #import "CXNetworkManager.h"
 #import <CXFoundation/CXFoundation.h>
 
-@implementation CXSignUtil
+@implementation CXSignUtils
 
 + (NSString *)signWithDictionary:(NSDictionary<NSString *, id> *)dictionary{
     return [self signWithDictionary:dictionary

@@ -1,5 +1,5 @@
 //
-//  CXNetworkUtil.h
+//  CXNetworkUtils.h
 //  Pods
 //
 //  Created by wshaolin on 2017/6/2.
@@ -11,7 +11,7 @@
 #define CX_WiFi_SSID    @"SSID"
 #define CX_WiFi_BSSID   @"BSSID"
 
-@interface CXNetworkUtil : NSObject
+@interface CXNetworkUtils : NSObject
 
 + (NSString *)MACAddr;
 + (NSString *)IPAddr;

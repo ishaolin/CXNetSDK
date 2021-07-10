@@ -1,19 +1,19 @@
 //
-//  CXNetworkUtil.m
+//  CXNetworkUtils.m
 //  Pods
 //
 //  Created by wshaolin on 2017/6/2.
 //
 //
 
-#import "CXNetworkUtil.h"
+#import "CXNetworkUtils.h"
 #include <sys/sysctl.h>
 #import <net/if.h>
 #import <net/if_dl.h>
 #import "netipstack.h"
-#import "CXWiFiUtil.h"
+#import "CXWiFiUtils.h"
 
-@implementation CXNetworkUtil
+@implementation CXNetworkUtils
 
 + (NSString *)MACAddr{
     int _mib[6];
@@ -84,7 +84,7 @@
 }
 
 + (NSDictionary<NSString *, NSString *> *)WiFiInfo{
-    return [CXWiFiUtil WiFiInfo];
+    return [CXWiFiUtils WiFiInfo];
 }
 
 @end

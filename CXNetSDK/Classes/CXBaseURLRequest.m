@@ -9,7 +9,7 @@
 #import "CXBaseURLRequest.h"
 #import "CXHTTPResponseSerializer.h"
 #import "CXNetworkReachabilityManager.h"
-#import "CXSignUtil.h"
+#import "CXSignUtils.h"
 #import "CXBaseModel.h"
 
 static AFHTTPSessionManager *_sessionManager;
@@ -68,7 +68,7 @@ static NSMutableArray<CXBaseURLRequest *> *_requestObjectManager;
 - (NSString *)signWithParams:(NSDictionary<NSString *, id> *)params
                   ignoreKeys:(nullable NSArray<NSString *> *)ignoreKeys
                   privateKey:(NSString *)privateKey{
-    return [CXSignUtil signWithDictionary:params
+    return [CXSignUtils signWithDictionary:params
                                ignoreKeys:ignoreKeys
                                privateKey:privateKey];
 }
