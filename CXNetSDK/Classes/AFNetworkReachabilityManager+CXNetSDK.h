@@ -1,5 +1,5 @@
 //
-//  AFNetworkReachabilityManager+CXNetSDKExtensions.h
+//  AFNetworkReachabilityManager+CXNetSDK.h
 //  Pods
 //
 //  Created by wshaolin on 2017/5/16.
@@ -9,7 +9,7 @@
 #import <AFNetworking/AFNetworkReachabilityManager.h>
 #import "CXNetDefines.h"
 
-@interface AFNetworkReachabilityManager (CXNetSDKExtensions)
+@interface AFNetworkReachabilityManager (CXNetSDK)
 
 - (NSString *)networkReachabilityStatusText;
 

@@ -1,17 +1,17 @@
 //
-//  AFNetworkReachabilityManager+CXNetSDKExtensions.m
+//  AFNetworkReachabilityManager+CXNetSDK.m
 //  Pods
 //
 //  Created by wshaolin on 2017/5/16.
 //
 //
 
-#import "AFNetworkReachabilityManager+CXNetSDKExtensions.h"
+#import "AFNetworkReachabilityManager+CXNetSDK.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <objc/runtime.h>
 #import <CoreTelephony/CTCarrier.h>
 
-@implementation AFNetworkReachabilityManager (CXNetSDKExtensions)
+@implementation AFNetworkReachabilityManager (CXNetSDK)
 
 - (CTTelephonyNetworkInfo *)cx_telephonyNetworkInfo{
     CTTelephonyNetworkInfo *telephonyNetworkInfo = objc_getAssociatedObject(self, _cmd);

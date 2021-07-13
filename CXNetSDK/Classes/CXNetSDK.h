@@ -14,9 +14,6 @@
 #import "CXBaseURLRequest.h"
 #import "CXNetworkReachabilityManager.h"
 #import "CXNetworkManager.h"
-#import "UIDevice+CXNetSDKExtensions.h"
-#import "AFNetworkReachabilityManager+CXNetSDKExtensions.h"
 #import "CXSignUtils.h"
-#import "CXNetworkUtils.h"
 
 #endif /* CXNetSDK_h */

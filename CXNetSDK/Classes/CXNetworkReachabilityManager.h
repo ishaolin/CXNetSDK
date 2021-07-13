@@ -32,6 +32,8 @@ typedef NS_ENUM(NSInteger, CXNetworkReachabilityStatus) {
 
 + (NSError *)networkReachabilityError;
 
++ (NSString *)carrier;
+
 @end
 
 CX_NET_EXTERN NSString * const CXNetworkingReachabilityDidChangeNotification;

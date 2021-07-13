@@ -1,21 +1,20 @@
 //
-//  CXNetworkUtils.m
+//  CXAddrUtils.m
 //  Pods
 //
 //  Created by wshaolin on 2017/6/2.
 //
 //
 
-#import "CXNetworkUtils.h"
+#import "CXAddrUtils.h"
 #include <sys/sysctl.h>
 #import <net/if.h>
 #import <net/if_dl.h>
 #import "netipstack.h"
-#import "CXWiFiUtils.h"
 
-@implementation CXNetworkUtils
+@implementation CXAddrUtils
 
-+ (NSString *)MACAddr{
++ (NSString *)macAddr{
     int _mib[6];
     size_t _len;
     char *_buffer;
@@ -61,7 +60,7 @@
     return [_addr copy];
 }
 
-+ (NSString *)IPAddr{
++ (NSString *)ipAddr{
     NSString *IPAddr = nil;
     char *addr = net_addr_get();
     if(addr != NULL){
@@ -81,10 +80,6 @@
     }
     
     return gatewayAddr;
-}
-
-+ (NSDictionary<NSString *, NSString *> *)WiFiInfo{
-    return [CXWiFiUtils WiFiInfo];
 }
 
 @end

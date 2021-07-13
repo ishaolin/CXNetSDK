@@ -7,8 +7,8 @@
 //
 
 #import "CXNetworkReachabilityManager.h"
-#import "AFNetworkReachabilityManager+CXNetSDKExtensions.h"
-#import "UIDevice+CXNetSDKExtensions.h"
+#import "AFNetworkReachabilityManager+CXNetSDK.h"
+#import "CXNetworkManager.h"
 
 @implementation CXNetworkReachabilityManager
 
@@ -34,7 +34,7 @@
 
 + (void)setReachabilityStatusChangeBlock:(void (^)(CXNetworkReachabilityStatus status))block{
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        [[UIDevice currentDevice] cx_syncIPStack];
+        [[CXNetworkManager sharedManager] networkChanged];
         !block ?: block((CXNetworkReachabilityStatus)status);
     }];
 }
@@ -47,6 +47,10 @@
     return [NSError errorWithDomain:@"com.network.reachability"
                                code:NSURLErrorNetworkConnectionLost
                            userInfo:@{NSLocalizedDescriptionKey : @"当前网络不可用", NSLocalizedFailureReasonErrorKey : @"当前网络不可用"}];
+}
+
++ (NSString *)carrier{
+    return [[AFNetworkReachabilityManager sharedManager] carrier];
 }
 
 @end
