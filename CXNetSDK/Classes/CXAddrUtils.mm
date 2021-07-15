@@ -15,49 +15,49 @@
 @implementation CXAddrUtils
 
 + (NSString *)macAddr{
-    int _mib[6];
-    size_t _len;
-    char *_buffer;
-    unsigned char *_p;
-    struct if_msghdr *_if_msghdr;
-    struct sockaddr_dl *_sockaddr_dl;
+    int mib[6];
+    size_t len;
+    char *buffer;
+    unsigned char *addr_ptr;
+    struct if_msghdr *msghdr;
+    struct sockaddr_dl *sockaddr;
     
-    _mib[0] = CTL_NET;
-    _mib[1] = AF_ROUTE;
-    _mib[2] = 0;
-    _mib[3] = AF_LINK;
-    _mib[4] = NET_RT_IFLIST;
+    mib[0] = CTL_NET;
+    mib[1] = AF_ROUTE;
+    mib[2] = 0;
+    mib[3] = AF_LINK;
+    mib[4] = NET_RT_IFLIST;
     
-    if((_mib[5] = if_nametoindex("en0")) == 0) {
+    if((mib[5] = if_nametoindex("en0")) == 0) {
         return @"";
     }
     
-    if(sysctl(_mib, 6, NULL, &_len, NULL, 0) < 0) {
+    if(sysctl(mib, 6, NULL, &len, NULL, 0) < 0) {
         return @"";
     }
     
-    if((_buffer = (char *)malloc(_len)) == NULL){
+    if((buffer = (char *)malloc(len)) == NULL){
         return @"";
     }
     
-    if(sysctl(_mib, 6, _buffer, &_len, NULL, 0) < 0){
-        free(_buffer);
+    if(sysctl(mib, 6, buffer, &len, NULL, 0) < 0){
+        free(buffer);
         return @"";
     }
     
-    _if_msghdr = (struct if_msghdr *)_buffer;
-    _sockaddr_dl = (struct sockaddr_dl *)(_if_msghdr + 1);
-    _p = (unsigned char *)LLADDR(_sockaddr_dl);
+    msghdr = (struct if_msghdr *)buffer;
+    sockaddr = (struct sockaddr_dl *)(msghdr + 1);
+    addr_ptr = (unsigned char *)LLADDR(sockaddr);
     
-    NSMutableString *_addr = [NSMutableString string];
-    [_addr appendFormat:@"%02x", *_p];
+    NSMutableString *addr = [NSMutableString string];
+    [addr appendFormat:@"%02x", *addr_ptr];
     for(int i = 1; i < 6; i ++){
-        [_addr appendFormat:@":%02x", *(_p + i)];
+        [addr appendFormat:@":%02x", *(addr_ptr + i)];
     }
     
-    free(_buffer);
+    free(buffer);
     
-    return [_addr copy];
+    return [addr copy];
 }
 
 + (NSString *)ipAddr{

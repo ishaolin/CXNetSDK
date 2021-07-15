@@ -15,7 +15,6 @@
 static AFHTTPSessionManager *_sessionManager;
 static AFHTTPRequestSerializer *_sRequestSerializer;
 static AFHTTPResponseSerializer *_sResponseSerializer;
-static NSMutableArray<CXBaseURLRequest *> *_requestObjectManager;
 
 @interface CXBaseURLRequest(){
     NSURLSessionDataTask *_sessionDataTask;
@@ -69,8 +68,8 @@ static NSMutableArray<CXBaseURLRequest *> *_requestObjectManager;
                   ignoreKeys:(nullable NSArray<NSString *> *)ignoreKeys
                   privateKey:(NSString *)privateKey{
     return [CXSignUtils signWithDictionary:params
-                               ignoreKeys:ignoreKeys
-                               privateKey:privateKey];
+                                ignoreKeys:ignoreKeys
+                                privateKey:privateKey];
 }
 
 - (void)addParam:(id)param forKey:(NSString *)key{
@@ -116,8 +115,7 @@ static NSMutableArray<CXBaseURLRequest *> *_requestObjectManager;
     }
 }
 
-- (void)loadRequestWithSuccess:(CXBaseURLRequestSuccessBlock)successBlock
-                       failure:(CXBaseURLRequestFailureBlock)failureBlock{
+- (void)loadRequestWithSuccess:(CXBaseURLRequestSuccessBlock)successBlock failure:(CXBaseURLRequestFailureBlock)failureBlock{
     NSError *error = [CXNetworkReachabilityManager networkReachabilityError];
     if(error){
         [self handleRequestFailure:failureBlock
@@ -127,7 +125,7 @@ static NSMutableArray<CXBaseURLRequest *> *_requestObjectManager;
         return;
     }
     
-    [_requestObjectManager addObject:self];
+    [CXObjectManager addObject:self];
     [self addParams:[self commonParams]];
     
     NSString *sign = [self signWithParams:_params];
@@ -160,6 +158,7 @@ static NSMutableArray<CXBaseURLRequest *> *_requestObjectManager;
 }
 
 - (void)uploadFileData:(NSArray<CXUploadFileData *> *)fileDatas
+              progress:(CXBaseURLRequestProgressBlock)progressBlock
                success:(CXBaseURLRequestSuccessBlock)successBlock
                failure:(CXBaseURLRequestFailureBlock)failureBlock{
     NSError *error = [CXNetworkReachabilityManager networkReachabilityError];
@@ -171,7 +170,7 @@ static NSMutableArray<CXBaseURLRequest *> *_requestObjectManager;
         return;
     }
     
-    [_requestObjectManager addObject:self];
+    [CXObjectManager addObject:self];
     [self addParams:[self commonParams]];
     NSString *sign = [self signWithParams:_params];
     [self addParam:sign forKey:_signKey];
@@ -216,7 +215,7 @@ static NSMutableArray<CXBaseURLRequest *> *_requestObjectManager;
                 LOG_FATEL(@"不支持的文件数据：%@", obj.file);
             }
         }];
-    } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    } progress:progressBlock success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self handleRequestSuccess:successBlock
                       responseData:responseObject
                           dataTask:task];
@@ -339,7 +338,7 @@ static NSMutableArray<CXBaseURLRequest *> *_requestObjectManager;
             successBlock(dataTask, data);
         }
         
-        [_requestObjectManager removeObject:self];
+        [CXObjectManager removeObject:self];
     }];
 }
 
@@ -361,7 +360,7 @@ static NSMutableArray<CXBaseURLRequest *> *_requestObjectManager;
                 failureBlock(dataTask, error);
             }
             
-            [_requestObjectManager removeObject:self];
+            [CXObjectManager removeObject:self];
         }
     }];
 }
@@ -412,7 +411,6 @@ static NSMutableArray<CXBaseURLRequest *> *_requestObjectManager;
         _sessionManager = [AFHTTPSessionManager manager];
         _sRequestSerializer = [[AFHTTPRequestSerializer alloc] init];
         _sResponseSerializer = [[CXHTTPResponseSerializer alloc] init];
-        _requestObjectManager = [NSMutableArray array];
     });
     
     if(maxConcurrentOperationCount > 0){

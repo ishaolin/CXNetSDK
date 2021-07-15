@@ -23,6 +23,8 @@ typedef NS_ENUM(NSInteger, CXHTTPMethod) {
 typedef void (^CXBaseURLRequestSuccessBlock)(NSURLSessionDataTask * _Nonnull dataTask, id _Nullable data);
 typedef void (^CXBaseURLRequestFailureBlock)(NSURLSessionDataTask * _Nullable dataTask, NSError * _Nullable error);
 
+typedef void (^CXBaseURLRequestProgressBlock)(NSProgress * _Nonnull progress);
+
 @class AFHTTPRequestSerializer;
 @class AFHTTPResponseSerializer;
 @class CXUploadFileData;
@@ -73,6 +75,7 @@ typedef void (^CXBaseURLRequestFailureBlock)(NSURLSessionDataTask * _Nullable da
  *  @param failureBlock 请求失败的回调
  */
 - (void)uploadFileData:(nullable NSArray<CXUploadFileData *> *)fileDatas
+              progress:(nullable CXBaseURLRequestProgressBlock)progressBlock
                success:(nullable CXBaseURLRequestSuccessBlock)successBlock
                failure:(nullable CXBaseURLRequestFailureBlock)failureBlock;
 
