@@ -145,7 +145,7 @@ static AFHTTPResponseSerializer *_sResponseSerializer;
             break;
         case CXHTTPMethod_PUT:
             [self putRequestWithSuccess:successBlock failure:failureBlock];
-            break;;
+            break;
         case CXHTTPMethod_PATCH:
             [self patchRequestWithSuccess:successBlock failure:failureBlock];
             break;
