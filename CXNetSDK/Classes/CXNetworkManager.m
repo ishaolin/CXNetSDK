@@ -10,12 +10,12 @@
 #include <sys/utsname.h>
 #import <CXFoundation/CXFoundation.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
-#import "CXAddrUtils.h"
+#import "CXAddressUtils.h"
 
 @interface CXNetworkManager () {
     NSString *_hardwareString;
     NSString *_hardwareDescription;
-    NSString *_macAddr;
+    NSString *_macAddress;
 }
 
 @end
@@ -68,17 +68,16 @@
     return _hardwareDescription;
 }
 
-- (NSString *)macAddr{
-    if(!_macAddr){
-        _macAddr = [CXAddrUtils macAddr];
+- (NSString *)macAddress{
+    if(!_macAddress){
+        _macAddress = [CXAddressUtils macAddress];
     }
     
-    return _macAddr;
+    return _macAddress;
 }
 
 - (void)networkChanged{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // WiFi
         CFArrayRef arrayRef = CNCopySupportedInterfaces();
         if(arrayRef){
             CFDictionaryRef dictionaryRef = CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(arrayRef, 0));
@@ -89,11 +88,8 @@
             CFRelease(arrayRef);
         }
         
-        // IP地址
-        _ipAddr = [CXAddrUtils ipAddr];
-        
-        // 网关地址
-        _gatewayAddr = [CXAddrUtils gatewayAddr];
+        _ipAddress = [CXAddressUtils ipAddress];
+        _gatewayAddress = [CXAddressUtils gatewayAddress];
     });
 }
 

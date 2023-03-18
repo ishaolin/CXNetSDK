@@ -1,20 +1,20 @@
 //
-//  CXAddrUtils.m
+//  CXAddressUtils.m
 //  Pods
 //
 //  Created by wshaolin on 2017/6/2.
 //
 //
 
-#import "CXAddrUtils.h"
+#import "CXAddressUtils.h"
 #include <sys/sysctl.h>
 #import <net/if.h>
 #import <net/if_dl.h>
 #import "netipstack.h"
 
-@implementation CXAddrUtils
+@implementation CXAddressUtils
 
-+ (NSString *)macAddr{
++ (NSString *)macAddress{
     int mib[6];
     size_t len;
     char *buffer;
@@ -60,7 +60,7 @@
     return [addr copy];
 }
 
-+ (NSString *)ipAddr{
++ (NSString *)ipAddress{
     NSString *IPAddr = nil;
     char *addr = net_addr_get();
     if(addr != NULL){
@@ -71,7 +71,7 @@
     return IPAddr;
 }
 
-+ (NSString *)gatewayAddr{
++ (NSString *)gatewayAddress{
     NSString *gatewayAddr = nil;
     char *gateway = net_gateway_addr();
     if(gateway != NULL){

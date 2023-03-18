@@ -17,9 +17,9 @@
 @property (nonatomic, copy, readonly) NSString *hardwareDescription;
 @property (nonatomic, copy, readonly) NSString *hardwareString;
 
-@property (nonatomic, copy, readonly) NSString *ipAddr;
-@property (nonatomic, copy, readonly) NSString *gatewayAddr;
-@property (nonatomic, copy, readonly) NSString *macAddr;
+@property (nonatomic, copy, readonly) NSString *ipAddress;
+@property (nonatomic, copy, readonly) NSString *gatewayAddress;
+@property (nonatomic, copy, readonly) NSString *macAddress;
 @property (nonatomic, strong, readonly) NSDictionary<NSString *, NSString *> *WiFiInfo;
 
 + (instancetype)sharedManager;
